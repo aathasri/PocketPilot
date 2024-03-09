@@ -27,33 +27,43 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Create Calendar event, place in DOM
-    function createCalendarEvent(course, session) {
-
-        // Calculate where to place the event on the calendar based on the day and time
-        // Replace `.calendar-column[data-day='${session.day}']` with actual calendar path based on HTML structure
-        const dayColumn = document.querySelector(/*`.calendar-column[data-day='${session.day}']`*/);
-        const timeRow = calculateTimeRow(session.start_time, session.end_time);
+    function createCalendarEvent(type, item, session) {
+        const calendar = document.getElementById('calendar'); // Replace with actual calendar ID
+        // Calculate which day column and time row the event should be placed in
+        const dayColumn = session.day.toLowerCase(); // assuming your columns are named by lowercased day names
+        const timeRowStart = calculateTimeRow(session.start_time);
+        const timeRowEnd = calculateTimeRow(session.end_time);
 
         // Create the event element
         const eventElement = document.createElement('div');
-        eventElement.className = 'calendar-event';
-        eventElement.textContent = `${course.course_name} (${course.course_number})`;
-        eventElement.style.gridRow = timeRow;
-
-        // Add styles based on the type of event (different background colors, etc)
-        eventElement.style.backgroundColor = determineEventColor(course.course_number);
+        eventElement.className = `calendar-event ${type}`;
+        eventElement.textContent = type === 'course' ? `${item.course_name} (${item.course_number})` : item.assignment_name; // customize based on type
+        eventElement.style.gridColumn = dayColumn;
+        eventElement.style.gridRowStart = timeRowStart;
+        eventElement.style.gridRowEnd = timeRowEnd;
+        eventElement.style.backgroundColor = determineEventColor(item.course_number || item.class); // course_number for courses, class for others
 
         // Append the event to that day's column
-        dayColumn.appendChild(eventElement);
+        calendar.appendChild(eventElement);
     }
 
     // Function to determine the grid row based on the event's start and end time
-    function calculateTimeRow(startTime, endTime) {
-        // Convert times to a format that can be used to determine the grid row
-        // Implement this based on the grid for the calendar
-        // ...
+    function calculateTimeRow(time) {
+        // Convert times to a 24-hour format that can be mapped to your calendar grid rows
+        const timeParts = time.match(/(\d+):(\d+) (AM|PM)/);
+        let hour = parseInt(timeParts[1], 10);
+        const minutes = parseInt(timeParts[2], 10);
+        const isPm = timeParts[3] === 'PM';
 
-        return timeRow;
+        if (isPm && hour < 12) {
+            hour += 12;
+        } else if (!isPm && hour === 12) {
+            hour = 0;
+        }
+
+        // Assuming each hour block in your calendar corresponds to a grid row
+        // Adjust this formula based on how your grid is set up
+        return hour - 8; // If your calendar starts at 8AM, for example
     }
 
     // Function to determine event color (extend this)
