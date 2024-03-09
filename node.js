@@ -22,6 +22,23 @@ app.get("/", async (req, res) => {
     }
 });
 
+// Serve JSON data from the 'app/json' directory
+app.get("/data/:jsonFileName", async (req, res) => {
+    const jsonFileName = req.params.jsonFileName;
+    try {
+        const jsonData = await fs.readFile(path.join(__dirname, 'app/json', `${jsonFileName}.json`), 'utf8');
+        res.json(JSON.parse(jsonData));
+    } catch (error) {
+        if (error.code === 'ENOENT') {
+            res.status(404).send('JSON file not found');
+        } else {
+            console.error("Error reading json file:", error);
+            res.status(500).send("Internal Server Error");
+        }
+    }
+});
+
+
 // Catch-all for 404 Not Found responses
 app.use((req, res) => {
     res.status(404).send("<html><head><title>Page not found!</title></head><body><p>Nothing here.</p></body></html>")
