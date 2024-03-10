@@ -6,5 +6,16 @@
     "express": "^4.18.3",
     "node": "^21.7.1",
     "openai": "^3.3.0"
-  }
+  },
+  "name": "qdshacks2024",
+  "description": "",
+  "version": "1.0.0",
+  "main": "node.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

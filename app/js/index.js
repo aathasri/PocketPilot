@@ -42,23 +42,22 @@ const assignForm = () => {
         aForm.style.display = "block";
     }
 }
-
 const chatbotOpen = () => {
     var chatbot  = document.querySelector("#chatbot");
-    var botOpen = chatbot.dataset.form;
+    var botOpen = botBtn.dataset.bot;
     console.log(botOpen);
-    if(botOpen=="true"){
-        chatbot.dataset.form = false;
-        chatbot.style.display = "none";
-    }else{
-        chatbot.dataset.form = true;
-        chatbot.style.display = "block";
-    }
+    // if(botOpen=="true"){
+    //     botBtn.dataset.bot = "false";
+    //     chatbot.style.display = "none";
+    // }else{
+    //     botBtn.dataset.bot = "true";
+    //     chatbot.style.display = "block";
+    // }
 }
 
 const chatbotClose = () => {
     var chatbot  = document.querySelector("#chatbot");
-    chatbot.dataset.form = false;
+    botBtn.dataset.form = "false";
     chatbot.style.display = "none";
 }
 
@@ -74,3 +73,5 @@ botBtn.addEventListener("click", chatbotOpen)
 botBtn02.addEventListener("click", chatbotOpen)
 closeBot.addEventListener("click", chatbotClose)
 alertBtn.addEventListener("click", alertClose)
+
+
