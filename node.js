@@ -52,10 +52,10 @@ app.post("/api/chat", async (req, res) => {
 app.use(express.static(path.join(__dirname, "public")));
 
 // Serve favicon using a more efficient method
-app.use(
-  "/favicon.ico",
-  express.static(path.join(__dirname, "public/icon/favicon.ico"))
-);
+// app.use(
+//   "/favicon.ico",
+//   express.static(path.join(__dirname, "public/icon/favicon.ico"))
+// );
 
 // Handle the root route
 app.get("/", async (req, res) => {
