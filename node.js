@@ -32,7 +32,7 @@ app.post("/api/chat", async (req, res) => {
         presence_penalty: 0,
       })
       .then((res) => {
-        res.json(res.data.choices[0].message.content);
+        console.log(res.data.choices[0].message.content);
       });
 
     // const reply = response.data.choices[0].text.trim(); // Extract the reply
