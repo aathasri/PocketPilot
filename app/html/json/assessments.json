@@ -1,0 +1,26 @@
+{
+  "exams_and_quizzes": [
+    {
+      "class": "BIO101",
+      "type": "Exam",
+      "topic": "Cell Structure",
+      "date": "2024-02-15",
+      "start_time": "10:00 AM",
+      "end_time": "12:00 PM",
+      "duration": "2 hours",
+      "during_class_time": false,
+      "study_time_hours": 10
+    },
+    {
+      "class": "SPAN201",
+      "type": "Quiz",
+      "topic": "Grammar",
+      "date": "2024-03-05",
+      "start_time": "1:30 PM",
+      "end_time": "2:00 PM",
+      "duration": "30 minutes",
+      "during_class_time": true,
+      "study_time_hours": 5
+    }
+  ]
+}

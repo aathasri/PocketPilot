@@ -1,0 +1,18 @@
+{
+  "assignments": [
+    {
+      "class": "BIO101",
+      "assignment_name": "Research Paper",
+      "due_date": "2024-03-10",
+      "due_time": "11:59 PM",
+      "hours_required": 15
+    },
+    {
+      "class": "SPAN201",
+      "assignment_name": "Composition",
+      "due_date": "2024-03-15",
+      "due_time": "5:00 PM",
+      "hours_required": 10
+    }
+  ]
+}

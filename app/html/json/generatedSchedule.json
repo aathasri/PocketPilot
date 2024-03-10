@@ -1,111 +1,81 @@
 {
-    "courses": [
+  "exams_and_quizzes": [
+    {
+      "class": "BIO101",
+      "type": "Exam",
+      "topic": "Cell Structure",
+      "date": "2024-02-15",
+      "start_time": "10:00 AM",
+      "end_time": "12:00 PM",
+      "duration": "2 hours",
+      "during_class_time": false,
+      "study_time_hours": 10
+    },
+    {
+      "class": "SPAN201",
+      "type": "Quiz",
+      "topic": "Grammar",
+      "date": "2024-03-05",
+      "start_time": "1:30 PM",
+      "end_time": "2:00 PM",
+      "duration": "30 minutes",
+      "during_class_time": true,
+      "study_time_hours": 5
+    }
+  ],
+  "courses": [
+    {
+      "course_number": "BIO101",
+      "course_name": "Introduction to Biology",
+      "start_date": "2024-01-03",
+      "end_date": "2024-04-15",
+      "schedule": [
         {
-            "course_number": "BIO101",
-            "course_name": "Introduction to Biology",
-            "start_date": "2024-01-03",
-            "end_date": "2024-04-15",
-            "schedule": [
-                {
-                    "day": "Monday",
-                    "start_time": "10:00 AM",
-                    "end_time": "11:30 AM"
-                },
-                {
-                    "day": "Wednesday",
-                    "start_time": "10:00 AM",
-                    "end_time": "11:30 AM"
-                }
-            ]
+          "day": "Monday",
+          "start_time": "10:00 AM",
+          "end_time": "11:30 AM"
         },
         {
-            "course_number": "SPAN201",
-            "course_name": "Intermediate Spanish",
-            "start_date": "2024-02-05",
-            "end_date": "2024-05-20",
-            "schedule": [
-                {
-                    "day": "Tuesday",
-                    "start_time": "1:00 PM",
-                    "end_time": "2:30 PM"
-                },
-                {
-                    "day": "Thursday",
-                    "start_time": "1:00 PM",
-                    "end_time": "2:30 PM"
-                }
-            ]
+          "day": "Wednesday",
+          "start_time": "10:00 AM",
+          "end_time": "11:30 AM"
         }
-    ],
-    "exams_and_quizzes": [
+      ]
+    },
+    {
+      "course_number": "SPAN201",
+      "course_name": "Intermediate Spanish",
+      "start_date": "2024-02-05",
+      "end_date": "2024-05-20",
+      "schedule": [
         {
-            "class": "BIO101",
-            "type": "Exam",
-            "topic": "Cell Structure",
-            "date": "2024-02-15",
-            "start_time": "10:00 AM",
-            "end_time": "12:00 PM",
-            "duration": "2 hours",
-            "during_class_time": false,
-            "study_time_hours": 10
+          "day": "Tuesday",
+          "start_time": "1:00 PM",
+          "end_time": "2:30 PM"
         },
         {
-            "class": "SPAN201",
-            "type": "Quiz",
-            "topic": "Grammar",
-            "date": "2024-03-05",
-            "start_time": "1:30 PM",
-            "end_time": "2:00 PM",
-            "duration": "30 minutes",
-            "during_class_time": true,
-            "study_time_hours": 5
+          "day": "Thursday",
+          "start_time": "1:00 PM",
+          "end_time": "2:30 PM"
         }
-    ],
-    "assignments": [
-        {
-            "class": "BIO101",
-            "assignment_name": "Research Paper",
-            "due_date": "2024-03-10",
-            "due_time": "11:59 PM",
-            "hours_required": 15
-        },
-        {
-            "class": "SPAN201",
-            "assignment_name": "Composition",
-            "due_date": "2024-03-15",
-            "due_time": "5:00 PM",
-            "hours_required": 10
-        }
-    ],
-    "life": [
-        {
-            "exercise": [
-                {
-                    "workout_type": "walk",
-                    "startTime": "5:45 PM",
-                    "endTime": "6:15 PM",
-                    "date": "2024-04-10"
-                }
-            ]
-        },
-        {
-            "snackBreak": [
-                {
-                    "startTime": "7:45 PM",
-                    "endTime": "8:00 PM",
-                    "date": "2024-04-10"
-                }
-            ]
-        },
-        {
-            "bedTime": [
-                {
-                    "startTime": "11:00 PM",
-                    "startDate": "2024-04-10",
-                    "endTime": "7:00 AM",
-                    "endDate": "2024-04-11"
-                }
-            ]
-        }
-    ]
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "class": "BIO101",
+      "assignment_name": "Research Paper",
+      "due_date": "2024-03-10",
+      "due_time": "11:59 PM",
+      "hours_required": 15
+    },
+    {
+      "class": "SPAN201",
+      "assignment_name": "Composition",
+      "due_date": "2024-03-15",
+      "due_time": "5:00 PM",
+      "hours_required": 10
+    }
+  ],
+  "optimizedSchedule": "Paris is a city, not a country, so it does not have a capital. Paris itself is the capital city of France."
 }

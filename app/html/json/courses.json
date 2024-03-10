@@ -1,0 +1,40 @@
+{
+  "courses": [
+    {
+      "course_number": "BIO101",
+      "course_name": "Introduction to Biology",
+      "start_date": "2024-01-03",
+      "end_date": "2024-04-15",
+      "schedule": [
+        {
+          "day": "Monday",
+          "start_time": "10:00 AM",
+          "end_time": "11:30 AM"
+        },
+        {
+          "day": "Wednesday",
+          "start_time": "10:00 AM",
+          "end_time": "11:30 AM"
+        }
+      ]
+    },
+    {
+      "course_number": "SPAN201",
+      "course_name": "Intermediate Spanish",
+      "start_date": "2024-02-05",
+      "end_date": "2024-05-20",
+      "schedule": [
+        {
+          "day": "Tuesday",
+          "start_time": "1:00 PM",
+          "end_time": "2:30 PM"
+        },
+        {
+          "day": "Thursday",
+          "start_time": "1:00 PM",
+          "end_time": "2:30 PM"
+        }
+      ]
+    }
+  ]
+}
