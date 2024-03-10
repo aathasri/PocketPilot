@@ -13,7 +13,12 @@ tailwind.config = {
           pink: "#FF539F",
           blue:"#5C9AF1",
           white: "#fff",
-          yellow: "#FED693"
+          yellow: "#FED693",
+          gray: {
+            "500":"#667085",
+            "100":"#E3E3E3"
+          },
+          green: "#268750"
         },
         height: {
           '90vh': '90vh',
