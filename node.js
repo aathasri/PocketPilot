@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+
 const path = require("path");
 const fs = require("fs").promises;
 
@@ -38,6 +39,43 @@ app.get("/data/:jsonFileName", async (req, res) => {
     }
 });
 
+// Handle form submission to update JSON data
+app.post("/submit/:jsonFileName", async (req, res) => {
+    try {
+        const jsonFileName = req.params.jsonFileName;
+        const formData = req.body;
+
+        // Update JSON file
+        await updateJSON(jsonFileName, formData);
+
+        res.json({ success: true });
+    } catch (error) {
+        console.error("Error updating JSON file:", error);
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+});
+
+// Function to update JSON file dynamically based on the filename
+async function updateJSON(fileName, newData) {
+    const jsonFilePath = path.join(__dirname, 'app/json', `${fileName}.json`);
+    
+    try {
+        // Read existing JSON data
+        const jsonData = await fs.readFile(jsonFilePath, 'utf8');
+        const existingData = JSON.parse(jsonData);
+
+        // Merge existing data with new data
+        const updatedData = [...existingData, newData];
+
+        // Write updated JSON data back to file
+        await fs.writeFile(jsonFilePath, JSON.stringify(updatedData, null, 2));
+
+        console.log(`Added new data to ${fileName}.json`);
+    } catch (error) {
+        console.error("Error updating JSON file:", error);
+        throw error;
+    }
+}
 
 // Catch-all for 404 Not Found responses
 app.use((req, res) => {
