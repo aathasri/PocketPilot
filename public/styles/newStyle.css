@@ -1,66 +1,134 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+:root {
+    --clr-ice-blue: hsl(196, 100%, 98%);
+    --clr-baby-blue: hsla(210, 65%, 65%, 0.9);
+    --clr-lines-grey: hsla(0, 0%, 45%, 0.775);
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: Montserrat;
+}
+
+.main-page {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 33vw, 65vw;
+    grid-template-areas:
+        "sideMenu calendar";
+    background-color: var(--clr-ice-blue);
+}
+
+.side-menu {
+    grid-area: sideMenu;
+
+    width: 100%;
+    height: 95%;
+
+    background: rgba(115, 155, 208, 0.7);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    
+
+}
+
+
+
 li {
     list-style: none;
-  }
-  
-  ul {
+}
+
+ul {
     margin: 0px;
     padding: 0px;
-  }
-  
-  .calendar-container {
+}
+
+.calendar-container {
+    grid-area: calendar;
+    overflow: auto;
+
+    width: 85%;
+    height: 85%;
+    margin-top: 3rem;
+
+
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(6.5px);
+    -webkit-backdrop-filter: blur(6.5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+
+    box-shadow: 0px 60px 60px 0px rgba(92, 154, 241, 0.20);
+
+    background-color: #fdfeff;
+
+
     display: grid;
-    grid-template-columns: 50px auto;
+    grid-template-columns: 40px repeat;
     grid-template-rows: auto;
     gap: 1px 1px;
     grid-template-areas:
-      ". header"
-      "timeslots-container main";
-  }
-  
-  .weekdays,
-  .daynumbers {
+        "toggles"
+        ". header"
+        "timeslots-container main";
+}
+
+.weekdays,
+.daynumbers {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-  }
-  
-  .weekdays {
-    background: rgb(83, 83, 83);
+}
+
+.weekdays {
+    /* background: rgb(83, 83, 83); */
     color: whitesmoke;
-  }
-  
-  .daynumbers {
-    background: rgb(194, 194, 194);
+}
+
+.daynumbers {
+    /* background: rgb(194, 194, 194); */
     min-height: 2em;
-  }
-  
-  .daynumbers li {
-    border-right: 1px solid black;
-  }
-  
-  .header {
-    background: rgb(224, 189, 156);
+}
+
+.daynumbers li {
+    border-right: 1px solid var(--clr-lines-grey);
+    padding-right: 1rem;
+}
+
+.header {
+    /* background: rgb(224, 189, 156); */
     grid-area: header;
-  }
-  
-  .timeslots-container {
-    background: lightblue;
+}
+
+.timeslots-container {
+    /* background: lightblue; */
     grid-area: timeslots-container;
     justify-items: left;
-  }
-  
-  .timeslots {
+}
+
+.timeslots {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  
-  .timeslots li {
+}
+
+.timeslots li {
     min-height: 60px;
-  }
-  
-  .timeslots li::after {
+}
+
+.timeslots li::after {
     content: "";
     position: absolute;
     left: 10px;
@@ -68,9 +136,9 @@ li {
     height: 1px;
     background: #afafaf;
     z-index: 1;
-  }
-  
-  .event-container {
+}
+
+.event-container {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     /* 
@@ -81,15 +149,13 @@ li {
     grid-area: main;
     position: relative;
     white-space: nowrap;
-    background: repeating-linear-gradient(
-      to right,
-      transparent 0%,
-      transparent 14.2%,
-      gray 14.3%
-    );
-  }
-  
-  .event-name {
+    background: repeating-linear-gradient(to right,
+            transparent 0%,
+            transparent 14.2%,
+            gray 14.3%);
+}
+
+.event-name {
     overflow: hidden;
     color: #fff;
     display: flex;
@@ -97,9 +163,9 @@ li {
     font-size: 12px;
     letter-spacing: 0.1px;
     line-height: 15px;
-  }
-  
-  .slot {
+}
+
+.slot {
     position: absolute;
     /* overflow: hidden; */
     background: rgb(66, 147, 223);
@@ -108,18 +174,18 @@ li {
     margin-top: 1px;
     border-color: rgb(3, 155, 229);
     outline: none;
-  }
-  
-  .slot::before {
+}
+
+.slot::before {
     -webkit-box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14),
-      0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.2);
+        0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.2);
     box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12),
-      0 3px 5px -1px rgba(0, 0, 0, 0.2);
+        0 3px 5px -1px rgba(0, 0, 0, 0.2);
     opacity: 0;
     transition: opacity 100ms linear;
-  }
-  
-  .slot::after {
+}
+
+.slot::after {
     position: absolute;
     top: -1px;
     left: -1px;
@@ -134,42 +200,42 @@ li {
     border-radius: 5px;
     pointer-events: none;
     border: 1px solid #fff;
-  }
-  
-  .event-status {
+}
+
+.event-status {
     float: left;
     border-left: 3px solid rgb(71, 235, 93);
     height: 100%;
-  }
-  
-  .slot-1 {
+}
+
+.slot-1 {
     /* is based on duration */
     height: 45px;
-  
+
     /* based on start time */
     grid-row: 17;
-  
+
     /* based on day of week */
     grid-column: 1;
-  }
-  
-  .slot-2 {
+}
+
+.slot-2 {
     height: 45px;
-  }
-  
-  .slot-3 {
+}
+
+.slot-3 {
     height: 75px;
-  }
-  
-  .slot-4 {
+}
+
+.slot-4 {
     color: red;
-  }
-  
-  .on-resize {
+}
+
+.on-resize {
     opacity: 0.85;
-  }
-  
-  .gridcell::after {
+}
+
+.gridcell::after {
     content: "";
     border-right: #dadce0 1px solid;
     position: relative;
@@ -180,5 +246,4 @@ li {
     /* -webkit-flex: 1 1 auto; */
     /* flex: 1 1 auto; */
     height: 200%;
-  }
-  
+}
