@@ -107,18 +107,25 @@ app.post("/submit/:jsonFileName", async (req, res) => {
 
 // Function to update JSON file dynamically based on the filename
 async function updateJSON(fileName, newData) {
-  const jsonFilePath = path.join(__dirname, "app/json", `${fileName}.json`);
+  const jsonFilePath = path.join(__dirname, "/public/json", `${fileName}.json`);
 
   try {
-    // Read existing JSON data
-    const jsonData = await fs.readFile(jsonFilePath, "utf8");
-    const existingData = JSON.parse(jsonData);
+    let existingData = { courses: [] }; // Initialize existingData as an object with an empty array
 
-    // Merge existing data with new data
-    const updatedData = [...existingData, newData];
+    // Read existing JSON data
+    try {
+      const jsonData = await fs.readFile(jsonFilePath, "utf8");
+      existingData = JSON.parse(jsonData);
+    } catch (readError) {
+      // If there's an error reading the file, log it but continue with an empty object
+      console.error("Error reading JSON file:", readError);
+    }
+
+    // Push new data to the courses array
+    existingData.courses.push(newData);
 
     // Write updated JSON data back to file
-    await fs.writeFile(jsonFilePath, JSON.stringify(updatedData, null, 2));
+    await fs.writeFile(jsonFilePath, JSON.stringify(existingData, null, 2));
 
     console.log(`Added new data to ${fileName}.json`);
   } catch (error) {
@@ -126,6 +133,7 @@ async function updateJSON(fileName, newData) {
     throw error;
   }
 }
+
 
 // Catch-all for 404 Not Found responses
 app.use((req, res) => {

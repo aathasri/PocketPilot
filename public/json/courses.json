@@ -1,0 +1,18 @@
+{
+  "courses": [
+    {
+      "course_number": "c213423",
+      "course_name": "chem",
+      "start_date": "2024-03-21",
+      "end_date": "2024-04-04",
+      "schedule": "tues"
+    },
+    {
+      "course_number": "b234234",
+      "course_name": "biochem",
+      "start_date": "2024-02-28",
+      "end_date": "2024-03-27",
+      "schedule": "mon"
+    }
+  ]
+}
