@@ -126,7 +126,7 @@
         </div>
         <div id='courses' class='flex flex-col items-center gap-y-3' data-form="false">
           <div class='bg-white flex justify-between items-center p-4 rounded-full shadow-lg'>
-            <img src="../images/icons.svg" width='20'>
+            <i class="fa-solid fa-book text-pink"></i>
           </div>
           <p>Courses</p>
         </div>
@@ -141,7 +141,7 @@
     <!-- Right section (calendar) -->
     <section class='flex justify-center items-center h-80vh rounded-lg shadow-lg mr-4 relative'>
       <!-- alert -->
-      <div
+      <div id='alert'
         class="absolute bottom-full left-0 flex justify-between items-center w-1/2 bg-red-100 border border-red py-3 px-3 rounded"
         role="alert">
         <span class="block text-red-800 flex justify-left gap-x-2 items-center w-full">
@@ -150,13 +150,8 @@
           </strong>
           <p>Hurry up! “SW1 Photoshop class at 13:30” Start in 10 min</p>
         </span>
-        <span class="flex">
-          <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20">
-            <title>Close</title>
-            <path
-              d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
-          </svg>
+        <span id='alertClose' class="flex text-red-500 font-bold cursor-pointer">
+          X
         </span>
       </div>
       <!-- component -->
@@ -773,9 +768,9 @@
         <div class="px-4 py-6 flex justify-between items-center">
           <p class="font-bold text-xl text-white mb-2">How are you?</p>
           <div class='flex gap-x-4'>
-            <p class='bg-white flex justify-center items-center w-9 h-9 rounded-full shadow-lg'><i
+            <p id='botBtn' class='bg-white flex justify-center items-center w-9 h-9 rounded-full shadow-lg cursor-pointer' data-bot=false><i
                 class="fa-solid fa-thumbs-up text-blue"></i></p>
-            <p class='bg-white flex justify-center items-center w-9 h-9 rounded-full shadow-lg'><i
+            <p id='botBtn02' class='bg-white flex justify-center items-center w-9 h-9 rounded-full shadow-lg cursor-pointer' data-bot=false><i
                 class="fa-solid fa-thumbs-down text-blue"></i></p>
           </div>
         </div>
@@ -1076,6 +1071,7 @@
 
   <!-- Chat Bot -->
   <div
+    id='chatbot'
     class='hidden absolute bottom-0 right-20 z-20 bg-white shadow-lg rounded-t-3xl w-1/4 px-8 border flex flex-col text-gray-500'>
     <div class='flex w-full justify-between py-6'>
       <div>
@@ -1086,7 +1082,7 @@
       </div>
       <div>
         <i class="fa-solid fa-minus pr-2"></i>
-        <i class="fa-solid fa-x"></i>
+        <i id='closeBot' class="fa-solid fa-x cursor-pointer"></i>
       </div>
     </div>
     <hr>
