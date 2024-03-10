@@ -235,35 +235,6 @@ async function updateJSON(fileName, newData) {
   }
 }
 
-// // Function to update JSON file dynamically based on the filename
-// async function updateJSON(fileName, newData) {
-//   const jsonFilePath = path.join(__dirname, "/public/json", `${fileName}.json`);
-
-//   try {
-//     let existingData = [];
-
-//     // Read existing JSON data
-//     try {
-//       const jsonData = await fs.readFile(jsonFilePath, "utf8");
-//       existingData = JSON.parse(jsonData);
-//     } catch (readError) {
-//       // If there's an error reading the file, log it but continue with an empty array
-//       console.error(`Error reading ${fileName}.json file:`, readError);
-//     }
-
-//     // Append new data to existing data array
-//     existingData.push(newData);
-
-//     // Write updated JSON data back to file
-//     await fs.writeFile(jsonFilePath, JSON.stringify(existingData, null, 2));
-
-//     console.log(`Added new data to ${fileName}.json`);
-//   } catch (error) {
-//     console.error(`Error updating ${fileName}.json file:`, error);
-//     throw error;
-//   }
-// }
-
 // Catch-all for 404 Not Found responses
 app.use((req, res) => {
   res
