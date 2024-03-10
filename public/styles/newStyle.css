@@ -98,15 +98,6 @@ ul {
 
     background-color: #fdfeff;
 
-
-    display: grid;
-    grid-template-columns: 40px repeat;
-    grid-template-rows: auto;
-    gap: 1px 1px;
-    grid-template-areas:
-        "toggles"
-        ". header"
-        "timeslots-container main";
 }
 
 .weekdays,
@@ -138,9 +129,8 @@ ul {
 }
 
 .timeslots-container {
-    /* background: lightblue; */
-    grid-area: timeslots-container;
-    justify-items: left;
+    grid-column: 1; /* Places timeslots container in the first column */
+    align-self: start;
 }
 
 .timeslots {
