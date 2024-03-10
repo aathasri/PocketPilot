@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 
-
 const path = require("path");
 const fs = require("fs").promises;
 const bodyParser = require("body-parser");
@@ -16,16 +15,71 @@ const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+async function readAndParseJSON(filePath) {
+  const data = await fs.readFile(filePath, "utf8"); // Correctly use fs.promises.readFile
+  return JSON.parse(data);
+}
+
+async function mergeAndExportJSON(jsonFilePaths, outputPath, additionalData) {
+  try {
+    const dataPromises = jsonFilePaths.map((filePath) =>
+      readAndParseJSON(filePath)
+    );
+    const jsonData = await Promise.all(dataPromises);
+
+    const combinedData = Object.assign({}, ...jsonData, additionalData);
+
+    await fs.writeFile(
+      outputPath,
+      JSON.stringify(combinedData, null, 2),
+      "utf8"
+    );
+    console.log("Combined JSON file has been successfully created.");
+  } catch (error) {
+    console.error("Error merging or exporting JSON:", error);
+  }
+}
+
 const openai = new OpenAIApi(configuration);
 
 app.post("/api/chat", async (req, res) => {
-  const { message } = req.body; // Get the message from the request body
+  const jsonFiles = [
+    path.join(__dirname, "app/html/json/assessments.json"),
+    path.join(__dirname, "app/html/json/courses.json"),
+    path.join(__dirname, "app/html/json/assignments.json"),
+  ];
+  const outputPath = path.join(
+    __dirname,
+    "app/html/json/generatedSchedule.json"
+  );
+  const additionalRequirements = {
+    // Additional data to include
+  };
+  const outputUrl = "app/html/json/generatedSchedule.json"; // URL path where the combined JSON can be accessed
+
+  // Combine data with user input. Ensure req.body.message is correctly used
+  const userInput = req.body.message;
+  // const combinedMessage = `Here is some data: ${JSON.stringify(
+  //   jsonData1
+  // )}, ${JSON.stringify(jsonData2)}, and ${JSON.stringify(
+  //   jsonData3
+  // )}. ${userInput}`;
 
   try {
     const response = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo", // Adjust the model as needed
-      messages: [{ role: "user", content: message }],
-      max_tokens: 150,
+      model: "gpt-4-0125-preview", // Adjust the model as needed
+      messages: [
+        {
+          role: "system",
+          content:
+            "The following are the loaded data from JSON files. Please create an opimized schedule based on these JSON files maintaining the same format as the files",
+        },
+        {
+          role: "user",
+          content: userInput,
+        },
+      ],
+      max_tokens: 500,
       temperature: 0.7,
       top_p: 1,
       frequency_penalty: 0,
@@ -35,7 +89,23 @@ app.post("/api/chat", async (req, res) => {
     // Now response is directly the response object from OpenAI
     if (response.data.choices.length > 0 && response.data.choices[0].message) {
       const reply = response.data.choices[0].message.content;
-      res.json({ reply }); // Correctly use the Express res object to send the reply
+
+      // Assuming you want to write the AI's reply to a file
+      await mergeAndExportJSON(jsonFiles, outputPath, {
+        optimizedSchedule: reply,
+      });
+
+      // Construct the URL for accessing the generated file (adjust as needed)
+      const url = `${req.protocol}://${req.get("host")}/path/to/${outputPath
+        .split("/")
+        .pop()}`;
+
+      // Send a combined response to the client
+      res.json({
+        message: "Optimized schedule created and saved.",
+        url: url,
+        reply: reply,
+      });
     } else {
       throw new Error("No valid reply from OpenAI.");
     }
@@ -134,7 +204,6 @@ async function updateJSON(fileName, newData) {
     throw error;
   }
 }
-
 
 // Catch-all for 404 Not Found responses
 app.use((req, res) => {
