@@ -4,16 +4,30 @@ tailwind.config = {
       extend: {
         colors: {
           lightBlue: '#DEEBFC',
-          red: '#FC6C69',
+          red: {
+            "800":"#71192F",
+            "500":'#FC6C69',
+            "100": "#FCE8DB"
+          },
           salmon: "#EBA8A2",
           pink: "#FF539F",
           blue:"#5C9AF1",
-          white: "#fff"
+          white: "#fff",
+          yellow: "#FED693"
         },
-        
+        height: {
+          '90vh': '90vh',
+          '80vh': '80vh',
+          "screen": "100vh"
+        },  
       },
       fontFamily: {
         head: ["Roboto", "sans-serif"],
-        },
+      },
+      opacity: {
+        '15': '0.15',
+        '35': '0.35',
+        '65': '0.65',
+      }
     }
 }
