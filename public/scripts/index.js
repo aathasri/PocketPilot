@@ -21,7 +21,6 @@ const courseForm = () => {
 const examForm = () => {
     var eForm  = document.querySelector("#eForm");
     var eOpen = eForm.dataset.form;
-    console.log(eOpen);
     if(eOpen=="true"){
         eForm.dataset.form = false;
         eForm.style.display = "none";
@@ -33,7 +32,6 @@ const examForm = () => {
 const assignForm = () => {
     var aForm  = document.querySelector("#aForm");
     var aOpen = aForm.dataset.form;
-    console.log(aOpen);
     if(aOpen=="true"){
         aForm.dataset.form = false;
         aForm.style.display = "none";
@@ -42,23 +40,22 @@ const assignForm = () => {
         aForm.style.display = "block";
     }
 }
-
 const chatbotOpen = () => {
     var chatbot  = document.querySelector("#chatbot");
-    var botOpen = chatbot.dataset.form;
+    var botOpen = botBtn.dataset.bot;
     console.log(botOpen);
     if(botOpen=="true"){
-        chatbot.dataset.form = false;
+        botBtn.dataset.bot = "false";
         chatbot.style.display = "none";
     }else{
-        chatbot.dataset.form = true;
+        botBtn.dataset.bot = "true";
         chatbot.style.display = "block";
     }
 }
 
 const chatbotClose = () => {
     var chatbot  = document.querySelector("#chatbot");
-    chatbot.dataset.form = false;
+    botBtn.dataset.form = "false";
     chatbot.style.display = "none";
 }
 
@@ -74,3 +71,39 @@ botBtn.addEventListener("click", chatbotOpen)
 botBtn02.addEventListener("click", chatbotOpen)
 closeBot.addEventListener("click", chatbotClose)
 alertBtn.addEventListener("click", alertClose)
+
+
+// var askBtn = document.querySelector("#askBtn");
+
+// const askBot = () => {
+//     console.log("Ss");
+// }
+
+// askBtn.addEventListener("click", askBot)
+function handleKeyPress(event) {
+    // Check if the key pressed is Enter (keyCode 13)
+    if (event.keyCode === 13) {
+        // Get the value of the input field
+        const inputValue = document.getElementById('userInput').value;
+        var container = document.createElement("div");
+        container.className = "flex flex-col items-end"
+        var textContain = document.createElement("div")
+        textContain.className = "bg-blue rounded-md flex flex-col justify-center items-center gap-y-2 py-4 px-4 shadow-lg shadow-lightBlue text-white"
+        container.append(textContain)
+        var p = document.createElement("p")
+        textContain.append(p)
+        p.innerText = inputValue
+        console.log(container);
+        document.querySelector("#chat").append(container)
+    }
+    
+    
+}
+
+function greet(name) {
+    console.log(name);
+}
+
+module.exports = {
+    greet: greet
+};
