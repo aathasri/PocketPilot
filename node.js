@@ -160,50 +160,114 @@ app.get("/data/:jsonFileName", async (req, res) => {
   }
 });
 
-// Handle form submission to update JSON data
-app.post("/submit/:jsonFileName", async (req, res) => {
+
+// Handle courses form submission to update courses.json
+app.post("/submit/courses", async (req, res) => {
   try {
-    const jsonFileName = req.params.jsonFileName;
     const formData = req.body;
 
-    // Update JSON file
-    await updateJSON(jsonFileName, formData);
+    // Update courses.json
+    await updateJSON('courses', formData);
 
     res.json({ success: true });
   } catch (error) {
-    console.error("Error updating JSON file:", error);
+    console.error("Error updating courses.json:", error);
     res.status(500).json({ success: false, error: "Internal Server Error" });
   }
 });
 
-// Function to update JSON file dynamically based on the filename
+// Handle exams form submission to update exams.json
+app.post("/submit/exams", async (req, res) => {
+  try {
+    const formData = req.body;
+
+    // Update exams.json
+    await updateJSON('exams', formData);
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Error updating exams.json:", error);
+    res.status(500).json({ success: false, error: "Internal Server Error" });
+  }
+});
+
+// Handle assignments form submission to update assignments.json
+app.post("/submit/assignments", async (req, res) => {
+  try {
+    const formData = req.body;
+
+    // Update assignments.json
+    await updateJSON('assignments', formData);
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Error updating assignments.json:", error);
+    res.status(500).json({ success: false, error: "Internal Server Error" });
+  }
+});
+
 async function updateJSON(fileName, newData) {
   const jsonFilePath = path.join(__dirname, "/public/json", `${fileName}.json`);
 
   try {
-    let existingData = { courses: [] }; // Initialize existingData as an object with an empty array
+    let existingData = [];
 
     // Read existing JSON data
     try {
       const jsonData = await fs.readFile(jsonFilePath, "utf8");
-      existingData = JSON.parse(jsonData);
+      if (jsonData.trim() !== '') {
+        existingData = JSON.parse(jsonData);
+      }
     } catch (readError) {
-      // If there's an error reading the file, log it but continue with an empty object
-      console.error("Error reading JSON file:", readError);
+      // If there's an error reading the file, log it but continue with an empty array
+      console.error(`Error reading ${fileName}.json file:`, readError);
     }
 
-    // Push new data to the courses array
-    existingData.courses.push(newData);
+    // Append new data to existing data array
+    existingData.push(newData);
 
     // Write updated JSON data back to file
     await fs.writeFile(jsonFilePath, JSON.stringify(existingData, null, 2));
 
     console.log(`Added new data to ${fileName}.json`);
   } catch (error) {
-    console.error("Error updating JSON file:", error);
+    console.error(`Error updating ${fileName}.json file:`, error);
     throw error;
   }
 }
+
+
+// // Function to update JSON file dynamically based on the filename
+// async function updateJSON(fileName, newData) {
+//   const jsonFilePath = path.join(__dirname, "/public/json", `${fileName}.json`);
+
+//   try {
+//     let existingData = [];
+
+//     // Read existing JSON data
+//     try {
+//       const jsonData = await fs.readFile(jsonFilePath, "utf8");
+//       existingData = JSON.parse(jsonData);
+//     } catch (readError) {
+//       // If there's an error reading the file, log it but continue with an empty array
+//       console.error(`Error reading ${fileName}.json file:`, readError);
+//     }
+
+//     // Append new data to existing data array
+//     existingData.push(newData);
+
+//     // Write updated JSON data back to file
+//     await fs.writeFile(jsonFilePath, JSON.stringify(existingData, null, 2));
+
+//     console.log(`Added new data to ${fileName}.json`);
+//   } catch (error) {
+//     console.error(`Error updating ${fileName}.json file:`, error);
+//     throw error;
+//   }
+// }
+
+
+
 
 // Catch-all for 404 Not Found responses
 app.use((req, res) => {
