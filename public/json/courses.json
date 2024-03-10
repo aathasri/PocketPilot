@@ -13,6 +13,13 @@
       "start_date": "2024-02-28",
       "end_date": "2024-03-27",
       "schedule": "mon"
+    },
+    {
+      "course_number": "COMP2121",
+      "course_name": "Discrete Mathematics",
+      "start_date": "2024-01-07",
+      "end_date": "2024-04-16",
+      "schedule": "Wednesday 12:30-2:20PM & Friday 10:30-12:20PM "
     }
   ]
 }
