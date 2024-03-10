@@ -21,22 +21,23 @@ app.post("/api/chat", async (req, res) => {
   const { message } = req.body; // Get the message from the request body
 
   try {
-    const response = await openai
-      .createChatCompletion({
-        model: "gpt-3.5-turbo", // Adjust the model as needed
-        messages: [{ role: "user", content: message }],
-        max_tokens: 150,
-        temperature: 0.7,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-      })
-      .then((res) => {
-        console.log(res.data.choices[0].message.content);
-      });
+    const response = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo", // Adjust the model as needed
+      messages: [{ role: "user", content: message }],
+      max_tokens: 150,
+      temperature: 0.7,
+      top_p: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0,
+    });
 
-    // const reply = response.data.choices[0].text.trim(); // Extract the reply
-    // res.json({ reply }); // Send the reply back to the client
+    // Now response is directly the response object from OpenAI
+    if (response.data.choices.length > 0 && response.data.choices[0].message) {
+      const reply = response.data.choices[0].message.content;
+      res.json({ reply }); // Correctly use the Express res object to send the reply
+    } else {
+      throw new Error("No valid reply from OpenAI.");
+    }
   } catch (error) {
     console.error(
       "Error calling OpenAI API:",
