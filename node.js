@@ -67,7 +67,7 @@ app.post("/api/chat", async (req, res) => {
 
   try {
     const response = await openai.createChatCompletion({
-      model: "gpt-4-0125-preview", // Adjust the model as needed
+      model: "gpt-4-turbo-preview", // Adjust the model as needed
       messages: [
         {
           role: "system",
@@ -160,14 +160,13 @@ app.get("/data/:jsonFileName", async (req, res) => {
   }
 });
 
-
 // Handle courses form submission to update courses.json
 app.post("/submit/courses", async (req, res) => {
   try {
     const formData = req.body;
 
     // Update courses.json
-    await updateJSON('courses', formData);
+    await updateJSON("courses", formData);
 
     res.json({ success: true });
   } catch (error) {
@@ -182,7 +181,7 @@ app.post("/submit/exams", async (req, res) => {
     const formData = req.body;
 
     // Update exams.json
-    await updateJSON('exams', formData);
+    await updateJSON("exams", formData);
 
     res.json({ success: true });
   } catch (error) {
@@ -197,7 +196,7 @@ app.post("/submit/assignments", async (req, res) => {
     const formData = req.body;
 
     // Update assignments.json
-    await updateJSON('assignments', formData);
+    await updateJSON("assignments", formData);
 
     res.json({ success: true });
   } catch (error) {
@@ -215,7 +214,7 @@ async function updateJSON(fileName, newData) {
     // Read existing JSON data
     try {
       const jsonData = await fs.readFile(jsonFilePath, "utf8");
-      if (jsonData.trim() !== '') {
+      if (jsonData.trim() !== "") {
         existingData = JSON.parse(jsonData);
       }
     } catch (readError) {
@@ -235,7 +234,6 @@ async function updateJSON(fileName, newData) {
     throw error;
   }
 }
-
 
 // // Function to update JSON file dynamically based on the filename
 // async function updateJSON(fileName, newData) {
@@ -265,9 +263,6 @@ async function updateJSON(fileName, newData) {
 //     throw error;
 //   }
 // }
-
-
-
 
 // Catch-all for 404 Not Found responses
 app.use((req, res) => {
