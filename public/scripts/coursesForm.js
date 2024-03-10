@@ -3,12 +3,11 @@ form.addEventListener('submit', async function(event) {
     event.preventDefault(); // Prevent default form submission
 
     const formData = new FormData(form); // Create FormData object from form
-    const jsonData = {}; // Create object to store form data as JSON
 
-    // Convert FormData to JSON
-    formData.forEach((value, key) => {
-        jsonData[key] = value;
-    });
+    // Log form data to console
+    for (let pair of formData.entries()) {
+        console.log(pair[0]+ ': ' + pair[1]); 
+    }
 
     // Send form data to server
     try {
@@ -17,7 +16,7 @@ form.addEventListener('submit', async function(event) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(jsonData)
+            body: JSON.stringify(Object.fromEntries(formData.entries()))
         });
 
         const data = await response.json();
