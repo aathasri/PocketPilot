@@ -25,43 +25,6 @@
   </head>
 
   <body>
-    <div id="chatContainer">Chat Container</div>
-    <input type="text" id="userInput" placeholder="Type your message here..." />
-    <button onclick="sendMessage()">Send</button>
-    <script>
-      async function sendMessage() {
-        const inputField = document.getElementById("userInput");
-        const message = inputField.value;
-        inputField.value = ""; // Clear the input field
-
-        // Display user message
-        const chatContainer = document.getElementById("chatContainer");
-        chatContainer.innerHTML += `<div>User: ${message}</div>`;
-
-        // Send the message to the server
-        const response = await fetch("/api/chat", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ message }),
-        });
-
-        const data = await response.json();
-
-        // Display AI response
-        if (data.reply) {
-          chatContainer.innerHTML += `<div>AI: ${data.reply}</div>`;
-        } else {
-          chatContainer.innerHTML += `<div>Error getting response</div>`;
-        }
-
-        // Scroll to the bottom
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-      }
-    </script>
-  </body>
-<body>
   <main class='flex justify-between items-center gap-x-4 w-screen h-screen relative'>
 
     <!-- Left section (tasks, completed) -->
@@ -538,7 +501,7 @@
           </div>
         </div>
         <hr>
-        <div id='chat' class='flex flex-col gap-y-4 py-4 h-96 overflow-scroll'>
+        <div id='chatContainer' class='flex flex-col gap-y-4 py-4 h-96 overflow-scroll'>
           <div class='flex gap-x-2'>
             <div class='w-8 h-8 border flex justify-center items-center rounded-full'>
               <i class="fa-solid fa-robot text-blue text-sm"></i>
@@ -577,7 +540,8 @@
         </div>
         <hr>
         <div class='flex justify-between py-4'>
-          <input type="text" placeholder='Your question' id='userInput' onkeypress="handleKeyPress(event)">
+          <input type="text" placeholder='Your question' id='userInput' onkeypress='handleKeyPress(event)'>
+          
           <div class='text-xl flex justify-between w-1/4'>
             <a href="#">
               <i class="fa-regular fa-face-smile"></i>

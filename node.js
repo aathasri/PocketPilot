@@ -42,6 +42,15 @@ async function mergeAndExportJSON(jsonFilePaths, outputPath, additionalData) {
 
 const openai = new OpenAIApi(configuration);
 
+async function generatePromptForGPT(jsonFiles) {
+  const jsonData = await Promise.all(jsonFiles.map(readAndParseJSON));
+  // Convert the array of JSON objects into a string description.
+  const dataDescription = jsonData
+    .map((data) => JSON.stringify(data))
+    .join(" ");
+  return `Please optimize the following schedule based on the data: ${dataDescription}`;
+}
+
 app.post("/api/chat", async (req, res) => {
   const jsonFiles = [
     path.join(__dirname, "app/html/json/assessments.json"),
@@ -59,20 +68,17 @@ app.post("/api/chat", async (req, res) => {
 
   // Combine data with user input. Ensure req.body.message is correctly used
   const userInput = req.body.message;
-  // const combinedMessage = `Here is some data: ${JSON.stringify(
-  //   jsonData1
-  // )}, ${JSON.stringify(jsonData2)}, and ${JSON.stringify(
-  //   jsonData3
-  // )}. ${userInput}`;
 
+  // Assuming `jsonDataArrays` is the array containing parsed data from your JSON files
   try {
+    const prompt = await generatePromptForGPT(jsonFiles);
+
     const response = await openai.createChatCompletion({
-      model: "gpt-4-turbo-preview", // Adjust the model as needed
+      model: "gpt-4-0125-preview", // Adjust the model as needed
       messages: [
         {
           role: "system",
-          content:
-            "The following are the loaded data from JSON files. Please create an opimized schedule based on these JSON files maintaining the same format as the files",
+          content: prompt,
         },
         {
           role: "user",
@@ -120,12 +126,6 @@ app.post("/api/chat", async (req, res) => {
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, "public")));
-
-// Serve favicon using a more efficient method
-// app.use(
-//   "/favicon.ico",
-//   express.static(path.join(__dirname, "public/icon/favicon.ico"))
-// );
 
 // Handle the root route
 app.get("/", async (req, res) => {
@@ -234,6 +234,35 @@ async function updateJSON(fileName, newData) {
     throw error;
   }
 }
+
+// // Function to update JSON file dynamically based on the filename
+// async function updateJSON(fileName, newData) {
+//   const jsonFilePath = path.join(__dirname, "/public/json", `${fileName}.json`);
+
+//   try {
+//     let existingData = [];
+
+//     // Read existing JSON data
+//     try {
+//       const jsonData = await fs.readFile(jsonFilePath, "utf8");
+//       existingData = JSON.parse(jsonData);
+//     } catch (readError) {
+//       // If there's an error reading the file, log it but continue with an empty array
+//       console.error(`Error reading ${fileName}.json file:`, readError);
+//     }
+
+//     // Append new data to existing data array
+//     existingData.push(newData);
+
+//     // Write updated JSON data back to file
+//     await fs.writeFile(jsonFilePath, JSON.stringify(existingData, null, 2));
+
+//     console.log(`Added new data to ${fileName}.json`);
+//   } catch (error) {
+//     console.error(`Error updating ${fileName}.json file:`, error);
+//     throw error;
+//   }
+// }
 
 // Catch-all for 404 Not Found responses
 app.use((req, res) => {
