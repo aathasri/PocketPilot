@@ -103,19 +103,32 @@ ul {
 .weekdays,
 .daynumbers {
     color: var(--clr-grey-blue);
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    display: contents; /* This helps to align the days and numbers without adding extra grid layers */
+
+}
+
+.weekdays li,
+.daynumbers li {
+    background-color: #fdfeff; /* Or any color you want for the day column background */
+    border-right: 1px solid var(--clr-lines-grey); 
+    display: flex;
+    align-items: center; /* Centers the content vertically */
+    justify-content: center; /* Centers the content horizontally */
 }
 
 .weekdays {
     /* background: rgb(83, 83, 83); */
     color: var(--clr-grey-blue);
+    justify-content: center;
+    align-items: center;
 }
 
 .daynumbers {
     color: var(--clr-grey-blue);
     /* background: rgb(194, 194, 194); */
     min-height: 2em;
+    justify-content: center;
+    align-items: center;
 }
 
 .daynumbers li {
@@ -124,8 +137,10 @@ ul {
 }
 
 .header {
-    /* background: rgb(224, 189, 156); */
-    grid-area: header;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* Set up for 7 days */
+    grid-gap: 1px; /* This creates the space for the vertical dividers */
+    background-color: var(--clr-lines-grey); /* This will be the color of the dividers */
 }
 
 .timeslots-container {
